@@ -1,0 +1,69 @@
+html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      height: 100%;
+      width: 100%;
+      background: url('img/1611252011_10-p-svetlo-serii-fon-dlya-saita-11.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    header {
+      background-color: #000;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    header a {
+      color: #4caf50;
+      text-decoration: none;
+    }
+
+
+    main {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    figure {
+      display: inline-block;
+      margin: 20px;
+    }
+
+    figure img {
+      width: 400px;
+      height: auto;
+      max-width: 100%;
+    }
+
+    figcaption {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background-color: #000;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: auto;
+    }
+	.social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 2rem;
+}
+
+.social-icon {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  transition: transform 0.3s;
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+}

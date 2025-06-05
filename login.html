@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Вхід</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="responsive.css">
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background-color: #f4f4f4; }
+    form { max-width: 400px; margin: auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    input, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 4px; border: 1px solid #ccc; }
+    button { background-color: #28a745; color: white; font-weight: bold; cursor: pointer; }
+    button:hover { background-color: #218838; }
+    #message { text-align: center; color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+<h2 style="text-align:center;">Вхід</h2>
+
+<form id="loginForm">
+  <input type="text" id="username" name="username" placeholder="Ім’я користувача" required>
+  <input type="password" id="password" name="password" placeholder="Пароль" required>
+  <button type="button" id="submitBtn">Увійти</button>
+</form>
+
+<p id="message"></p>
+
+<script>
+  document.getElementById("submitBtn").addEventListener("click", async function() {
+    const formData = new FormData();
+    formData.append("username", document.getElementById("username").value.trim());
+    formData.append("password", document.getElementById("password").value);
+
+    try {
+      const response = await fetch("login.php", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await response.text();
+      const message = document.getElementById("message");
+
+      if (result === "OK_ADMIN") {
+        window.location.href = "admin.php";
+      } else if (result === "OK_USER") {
+        window.location.href = "index.html";
+      } else {
+        message.textContent = result;
+      }
+    } catch (err) {
+      console.error("Помилка авторизації", err);
+      document.getElementById("message").textContent = "Помилка з'єднання з сервером";
+    }
+  });
+</script>
+
+
+</body>
+</html>

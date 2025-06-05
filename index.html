@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>БАЙК - Магазин мототехніки</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="responsive.css">
+
+  <style>
+
+.site-header {
+  background-color: #000;
+
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.site-logo {
+  max-height: 60px;
+  width: auto;
+}
+
+.site-title h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+#product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2rem;
+  gap: 1.5rem;
+}
+
+.product-card {
+  width: 240px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: scale(1.02);
+}
+
+.product-card img {
+  max-width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    header, footer {
+      background-color: #000;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+.nav-btn.active {
+  background-color: #ff9800;
+}
+
+
+    .main-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: #1a1a1a;
+  padding: 1rem;
+}
+
+.nav-btn {
+  background-color: #f57c00;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.nav-btn:hover {
+  background-color: #e65100;
+  transform: scale(1.05);
+}
+
+    .hero {
+      background: url('img/hero-bike.jpg') center/cover no-repeat;
+      color: white;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: 0.3s;
+      text-decoration: none;
+      color: black;
+    }
+
+    .product-card:hover {
+      transform: scale(1.02);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .product-card h3, .product-card strong {
+      padding: 0.5rem 1rem;
+    }
+
+    html, body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body {
+      flex: 1;
+    }
+
+    main, .products {
+      flex: 1;
+    }
+
+    footer {
+      margin-top: auto;
+    }
+
+    header .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .header-left {
+      text-align: center;
+      flex: 1;
+    }
+
+    header h1, header p {
+      margin: 0.2rem 0;
+    }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.auth-buttons {
+  margin-left: auto;
+}
+
+
+    header .auth-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    header .auth-buttons a {
+      color: white;
+      text-decoration: none;
+      border: 1px solid white;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    header .auth-buttons a:hover {
+      background-color: white;
+      color: black;
+    }
+
+    #userInfo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #userInfo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    #userInfo button {
+      padding: 6px 10px;
+      background: #f44336;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #userInfo button:hover {
+      background: #c0392b;
+    }
+
+    /* 🔍 Пошук */
+    .search-container {
+      max-width: 800px;
+      margin: 1.5rem auto 0 auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    #searchInput {
+      width: 100%;
+      max-width: 500px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      border: 2px solid #ccc;
+      border-radius: 30px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    #searchInput:focus {
+      outline: none;
+      border-color: #f57c00;
+      box-shadow: 0 0 8px rgba(245, 124, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+<header>
+<div class="header-logo">
+      <img src="img/pngwing.com.png" alt="Логотип БАЙК" style="max-height: 100px;">
+<div class="top-bar">
+    <div class="header-left">
+      <h1>БАЙК - Магазин мототехніки</h1>
+      <p>Телефон: <a href="tel:+380667508275" style="color:white;">+38 (066) 750 82 75</a></p>
+    </div>
+    
+  <div class="auth-buttons" id="authArea">
+  <a href="login.html">Увійти</a>
+  <a href="register.html">Реєстрація</a>
+</div>
+<div class="user-info" id="userInfo" style="display: none;">
+  <img src="img/6596121.png" width="36" style="border-radius: 50%;">
+  <span id="usernameDisplay"></span>
+
+  <!-- 🔽 Цей блок буде вставлятись тільки для admin -->
+  <a id="adminLink" href="admin.php" style="display:none; color:white; margin-left:10px;">Адмінка</a>
+
+  <form action="logout.php" method="post" style="margin-left:10px;">
+    <button type="submit" class="btn">Вийти</button>
+  </form>
+</div>
+
+
+
+</header>
+
+<nav class="main-nav">
+  <a href="index.html" class="nav-btn active">Головна</a>
+  <a href="info.html" class="nav-btn active">Про нас</a>
+  <a href="gaphik.html" class="nav-btn active">Графік</a>
+  <a href="kontakt2.html" class="nav-btn active">Контакти</a>
+</nav>
+
+
+<!-- 🔍 Поле пошуку -->
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Пошук товарів...">
+</div>
+<div class="products" id="product-container"></div>
+
+
+<section class="products" id="product-list">
+  <!-- Динамічно додані товари -->
+</section>
+
+<footer>
+  <p>&copy; 2025 БАЙК. Усі права захищено.</p>
+</footer>
+
+<script>
+  let allProducts = [];
+
+  async function checkSession() {
+    try {
+      const res = await fetch("session.php");
+      const data = await res.json();
+
+      const authDiv = document.getElementById("authArea");
+      const userDiv = document.getElementById("userInfo");
+      const adminLink = document.getElementById("adminLink");
+
+      if (data.loggedIn) {
+        authDiv.style.display = "none";
+        userDiv.style.display = "flex";
+        document.getElementById("usernameDisplay").textContent = data.username;
+
+        if (data.role === "admin") {
+          adminLink.style.display = "inline";
+        }
+      } else {
+        authDiv.style.display = "flex";
+        userDiv.style.display = "none";
+      }
+    } catch (err) {
+      console.error("Session check failed", err);
+    }
+  }
+
+  async function loadProducts() {
+    const res = await fetch("get_products.php");
+    allProducts = await res.json();
+    renderProducts(allProducts);
+  }
+
+  function renderProducts(products) {
+  const container = document.getElementById("product-container");
+  container.innerHTML = products.map(p => `
+    <a href="product.html?id=${p.id}" class="product-card">
+      <img src="${p.image}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p><strong>${parseFloat(p.price).toFixed(2)} грн</strong></p>
+    </a>
+  `).join("");
+}
+
+
+  // Пошук
+  document.getElementById("searchInput").addEventListener("input", function () {
+    const term = this.value.toLowerCase().trim();
+    const filtered = allProducts.filter(p => p.name.toLowerCase().includes(term));
+    renderProducts(filtered);
+  });
+
+  window.addEventListener("DOMContentLoaded", () => {
+    checkSession();
+    loadProducts();
+  });
+</script>
+
+
+
+
+</body>
+</html>

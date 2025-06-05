@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <title>Про нас — BIKE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="контакти магазин BIKE">
+    <meta name="description" content="Контактна інформація магазину BIKE у Коломиї.">
+    <link rel="icon" href="favicon.ico" type="images/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="css1.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="responsive.css">
+  <style>
+  
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #000;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    header a {
+      color: #4caf50;
+      text-decoration: none;
+    }
+.nav-btn.active {
+  background-color: #ff9800;
+}
+
+
+   .main-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: #1a1a1a;
+  padding: 1rem;
+}
+
+.nav-btn {
+  background-color: #f57c00;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.nav-btn:hover {
+  background-color: #e65100;
+  transform: scale(1.05);
+}
+
+
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .map-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 2rem 0;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      border: 0;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    footer {
+      background-color: #000;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Інформація про наш магазин</h1>
+    <p>Телефон: <a href="tel:+380667508275">+38 (066) 750 82 75</a></p>
+  </header>
+
+  <nav class="main-nav">
+  <a href="index.html" class="nav-btn active">Головна</a>
+  <a href="info.html" class="nav-btn active">Про нас</a>
+  <a href="gaphik.html" class="nav-btn active">Графік</a>
+  <a href="kontakt2.html" class="nav-btn active">Контакти</a>
+</nav>
+
+
+  <main>
+    <h2 style="text-align:center;">Наше розташування на карті</h2>
+
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2563.005931649736!2d25.024757599999997!3d48.5268595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4736d3002a359b7d%3A0x17dae94baa81776c!2z0KLQtdGA0LXQvdGB0YLQsA!5e0!3m2!1suk!2sua!4v1696095943709!5m2!1suk!2sua" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <p><strong>Магазин "БАЙК"</strong> — найбільший магазин мото техніки у Коломиї. Ми працюємо більше <strong>20 років</strong>.</p>
+    <p>У нас ви знайдете великий вибір <strong>мотоциклів, мопедів, квадроциклів, електротранспорту</strong> та запчастин.</p>
+    <p>Пропонуємо <strong>доставку</strong> по Коломийському району, а також професійний <strong>ремонт</strong>.</p>
+    <p>Гарантуємо <strong>доступні ціни</strong>, широкий асортимент та привітний персонал.</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 BIKE. Усі права захищено.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Товар</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="responsive.css">
+  <style>
+.product-description {
+  background: #fff3e0;
+  border-left: 5px solid #f57c00;
+  padding: 20px;
+  margin-top: 20px;
+  line-height: 1.6;
+  font-size: 16px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+#order-form button {
+  display: block;
+  margin: 20px auto 0 auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #f57c00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#order-form button:hover {
+  background-color: #e65100;
+}
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+    }
+.nav-btn.active {
+  background-color: #ff9800;
+}
+
+
+    .main-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: #1a1a1a;
+  padding: 1rem;
+}
+
+.nav-btn {
+  background-color: #f57c00;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.nav-btn:hover {
+  background-color: #e65100;
+  transform: scale(1.05);
+}
+
+
+    .product-container {
+      display: flex;
+      gap: 20px;
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem 1rem 0;
+    }
+
+    .thumbnails {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .thumbnails img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .thumbnails img.active {
+      border-color: orange;
+    }
+
+    .main-image {
+      flex: 1;
+      text-align: center;
+    }
+
+    .main-image img {
+      max-width: 100%;
+      max-height: 500px;
+    }
+
+    .product-info {
+      max-width: 900px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    .order-button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #f57c00;
+      color: white;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .order-button:hover {
+      background-color: #e65100;
+    }
+
+    footer {
+      margin-top: auto;
+      background-color: #000;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    #order-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #order-modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      position: relative;
+    }
+
+    #close-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #order-form input {
+      width: 100%;
+      padding: 5px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+
+    #order-form label {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<nav class="main-nav">
+  <a href="index.html" class="nav-btn active">Головна</a>
+  <a href="info.html" class="nav-btn active">Про нас</a>
+  <a href="gaphik.html" class="nav-btn active">Графік</a>
+  <a href="kontakt2.html" class="nav-btn active">Контакти</a>
+</nav>
+
+<div id="product-detail"></div>
+
+<div id="order-modal">
+  <div id="order-modal-content">
+    <span id="close-modal" onclick="document.getElementById('order-modal').style.display='none'">&times;</span>
+    <h3>Оформлення замовлення</h3>
+    <form id="order-form">
+      <label>Ім’я:</label>
+      <input type="text" name="name" required>
+      <label>Прізвище:</label>
+      <input type="text" name="lastName" required>
+      <label>Телефон:</label>
+      <input type="text" name="phone" required>
+      <label>Email:</label>
+      <input type="email" name="email" required>
+      <input type="hidden" name="productId" id="productId">
+      <button type="submit">Підтвердити</button>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 БАЙК. Усі права захищено.</p>
+</footer>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id");
+  let userSession = null;
+
+  async function checkSession() {
+    try {
+      const res = await fetch("session.php");
+      userSession = await res.json();
+    } catch (e) {
+      userSession = { loggedIn: false };
+    }
+  }
+
+  async function loadProduct() {
+    try {
+      const res = await fetch(`get_products.php?id=${id}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const product = await res.json();
+
+      if (!product || !product.id) {
+        document.getElementById("product-detail").innerHTML = "<p>Товар не знайдено.</p>";
+        return;
+      }
+
+      const images = [product.image, ...(product.images?.split(",") || [])];
+
+      document.getElementById("product-detail").innerHTML = `
+        <div class="product-container">
+          <div class="thumbnails">
+            ${images.map((img, i) => `
+              <img src="${img}" class="${i === 0 ? 'active' : ''}" onclick="setMainImage('${img}', this)">
+            `).join("")}
+          </div>
+          <div class="main-image">
+            <img id="main-product-image" src="${product.image}" alt="${product.name}">
+          </div>
+        </div>
+
+        <div class="product-info">
+          <h1 style="text-align:left">${product.name}</h1>
+          <p style="text-align:left"><strong>Ціна:</strong> ${product.price} грн</p>
+          <button class="order-button" onclick="openOrderForm(${product.id})">Замовити</button>
+        </div>
+<div class="product-description">
+  <p>${product.description}</p>
+</div>
+
+      `;
+    } catch (e) {
+      console.error("Помилка завантаження товару:", e);
+      document.getElementById("product-detail").innerHTML = "<p>Помилка при завантаженні товару.</p>";
+    }
+  }
+
+  function setMainImage(url, el) {
+    document.getElementById("main-product-image").src = url;
+    document.querySelectorAll(".thumbnails img").forEach(img => img.classList.remove("active"));
+    el.classList.add("active");
+  }
+
+  function openOrderForm(productId) {
+    if (!userSession?.loggedIn) {
+      alert("Зареєструйтесь для оформлення замовлення.");
+      return;
+    }
+    document.getElementById("order-modal").style.display = "flex";
+    document.getElementById("productId").value = productId;
+  }
+
+  document.getElementById("order-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+
+    const response = await fetch('submit_order.php', {
+      method: 'POST',
+      body: formData
+    });
+
+    let resultText = await response.text();
+    try {
+      const result = JSON.parse(resultText);
+      if (result.success) {
+        alert("Замовлення успішно надіслано!");
+        e.target.reset();
+        document.getElementById("order-modal").style.display = "none";
+      } else {
+        alert("Помилка: " + result.error);
+      }
+    } catch (err) {
+      console.error("Не JSON:", resultText);
+      alert("Сервер повернув помилку:\n" + resultText);
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    await checkSession();
+    await loadProduct();
+  });
+</script>
+
+</body>
+</html>

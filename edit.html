@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Редагування товару</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #f9f9f9; }
+    input, textarea, button { width: 100%; margin: 10px 0; padding: 10px; }
+    .preview img { width: 100px; margin: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Редагування товару</h1>
+
+  <div class="preview">
+    <h3>Попередній перегляд</h3>
+    <p><strong id="prev-name"></strong></p>
+    <img id="prev-main" src="" alt="Головне зображення">
+    <p><strong>Опис:</strong> <span id="prev-desc"></span></p>
+    <p><strong>Ціна:</strong> <span id="prev-price"></span></p>
+    <div id="extra-images"></div>
+  </div>
+
+  <hr>
+
+  <form id="edit-form">
+    <input type="text" id="name" placeholder="Назва товару" required>
+    <input type="text" id="imageMain" placeholder="URL головного зображення" required>
+    <textarea id="imagesExtra" placeholder="Інші фото (через кому)"></textarea>
+    <textarea id="description" placeholder="Опис" required></textarea>
+    <input type="text" id="price" placeholder="Ціна" required>
+    <button type="submit">Зберегти зміни</button>
+  </form>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const products = JSON.parse(localStorage.getItem("products") || "[]");
+    const product = products.find(p => p.id == id);
+
+    if (!product) {
+      document.body.innerHTML = "<p>Товар не знайдено</p>";
+    } else {
+      // заповнюємо форму
+      document.getElementById("name").value = product.name;
+      document.getElementById("imageMain").value = product.image;
+      document.getElementById("imagesExtra").value = (product.images || []).join(", ");
+      document.getElementById("description").value = product.description;
+      document.getElementById("price").value = product.price;
+
+      // попередній перегляд
+      document.getElementById("prev-name").textContent = product.name;
+      document.getElementById("prev-main").src = product.image;
+      document.getElementById("prev-desc").textContent = product.description;
+      document.getElementById("prev-price").textContent = product.price;
+
+      const extraImagesContainer = document.getElementById("extra-images");
+      (product.images || []).forEach(url => {
+        const img = document.createElement("img");
+        img.src = url;
+        extraImagesContainer.appendChild(img);
+      });
+
+      document.getElementById("edit-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+        product.name = document.getElementById("name").value;
+        product.image = document.getElementById("imageMain").value;
+        product.images = document.getElementById("imagesExtra").value
+          .split(",")
+          .map(x => x.trim())
+          .filter(x => x);
+        product.description = document.getElementById("description").value;
+        product.price = document.getElementById("price").value;
+
+        const updated = products.map(p => p.id == id ? product : p);
+        localStorage.setItem("products", JSON.stringify(updated));
+        alert("Зміни збережено!");
+        window.location.href = "admin.html";
+      });
+    }
+  </script>
+</body>
+</html>
